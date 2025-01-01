@@ -1,47 +1,46 @@
+/* Updated styles with #FF0000 (red), white, and black color scheme */
 
 .nav-link {
   padding: 8px 16px;
   margin: 5px;
   border-radius: 20px;
   text-decoration: none;
-  color: #555;
+  color: black; /* Text color is black */
   transition: background-color 0.3s, color 0.3s;
 }
 
 .nav-link:hover {
-  background-color: #f0f0f0;
-  color: #000;
+  background-color: #FF0000; /* Red background on hover */
+  color: white; /* White text on hover */
 }
-
 
 .nav-link.active {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #FF0000; /* Active link background is red */
+  color: white; /* Active link text is white */
 }
 
-
 .btn {
-  background-color: #f0f0f0;
-  color: #555;
+  background-color: white; /* Button background is white */
+  color: black; /* Button text is black */
   border-radius: 20px;
   padding: 8px 16px;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .btn-primary {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #FF0000; /* Primary button background is red */
+  color: white; /* Primary button text is white */
   width: 150px;
 }
 
 .btn:hover {
-  background-color: #e0e0e0;
-  color: #000;
+  background-color: #FF0000; /* Button background changes to red on hover */
+  color: white; /* Button text changes to white on hover */
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
-  color: #fff;
+  background-color: black; /* Primary button background changes to black on hover */
+  color: white; /* Primary button text remains white */
 }
 
 nav .flex {
