@@ -11,66 +11,83 @@ export default function RentedDetail() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        axios.get(`https://estateempire-backend-1.onrender.com/properties/for-rent/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-            .then(response => {
+        const fetchRentalDetails = async () => {
+            const token = localStorage.getItem('token');
+
+            try {
+                const response = await axios.get(
+                    `https://estateempire-backend-1.onrender.com/properties/for-rent/${id}`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    }
+                );
                 setRental(response.data);
-            })
-            .catch(error => {
-                console.error('There was an error fetching the rental details!', error);
-            });
+            } catch (error) {
+                console.error('Error fetching rental details:', error);
+            }
+        };
+
+        fetchRentalDetails();
     }, [id]);
 
-    const handleRental = () => {
-        setIsModalOpen(true);
-    };
+    const handleRental = () => setIsModalOpen(true);
 
     const handleModalSubmit = async (phoneNumber) => {
         setIsModalOpen(false);
+
         const token = localStorage.getItem('token');
         const payload = {
-            property_id: parseInt(id),
-            amount: parseInt(rental.price),
-            phone_number: phoneNumber
+            property_id: parseInt(id, 10),
+            amount: parseInt(rental.price, 10),
+            phone_number: phoneNumber,
         };
-        console.log('Payload:', payload);
 
         try {
-            const response = await axios.post('https://estateempire-backend-1.onrender.com/rentals', payload, {
-
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
+            const response = await axios.post(
+                'https://estateempire-backend-1.onrender.com/rentals',
+                payload,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
                 }
-            });
+            );
             toast.success('Rent payment initiated successfully!');
-            console.log(response.data);
+            console.log('Response:', response.data);
         } catch (error) {
-            console.error('Full error object:', error);
+            console.error('Error initiating rent payment:', error);
+
             if (error.response) {
-                console.error('Response data:', error.response.data);
-                console.error('Response status:', error.response.status);
-                toast.error(`Rent payment initiation failed: ${error.response.data.message || 'Unknown error'}`);
+                toast.error(
+                    `Rent payment initiation failed: ${
+                        error.response.data.message || 'Unknown error'
+                    }`
+                );
             } else if (error.request) {
-                console.error('Request made but no response received:', error.request);
-                toast.error('No response received from server. Please try again later.');
+                toast.error('No response from server. Please try again later.');
             } else {
-                console.error('Error setting up request:', error.message);
-                toast.error('An error occurred while setting up the request.');
+                toast.error('Error setting up request.');
             }
         }
     };
 
     if (!rental) {
-        return <div className="text-center mt-8 text-gray-700">Loading...</div>;
+        return (
+            <div className="text-center mt-8 text-gray-700">Loading...</div>
+        );
     }
 
     return (
-        <div className="relative min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://assets-news.housing.com/news/wp-content/uploads/2021/10/28230258/Best-colours-for-home-outside-shutterstock_346448522.jpg')" }}>
+        <div
+            className="relative min-h-screen bg-cover bg-center bg-no-repeat"
+            style={{
+                backgroundImage:
+                    "url('https://assets-news.housing.com/news/wp-content/uploads/2021/10/28230258/Best-colours-for-home-outside-shutterstock_346448522.jpg')",
+            }}
+        >
             <div className="flex flex-col p-4 sm:p-6 md:p-10 space-y-6 max-w-5xl mx-auto">
                 <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
                     <img
@@ -80,9 +97,15 @@ export default function RentedDetail() {
                     />
 
                     <div className="flex flex-col bg-white border border-gray-200 rounded-lg shadow-lg dark:border-gray-700 dark:bg-gray-800 w-full md:w-1/2 p-6">
-                        <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{rental.name}</h3>
-                        <p className="text-xl font-semibold text-gray-700 dark:text-gray-300">{rental.location}</p>
-                        <p className="py-4 text-2xl font-semibold text-gray-900 dark:text-gray-100">Ksh {formatPrice(rental.price)}</p>
+                        <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                            {rental.name}
+                        </h3>
+                        <p className="text-xl font-semibold text-gray-700 dark:text-gray-300">
+                            {rental.location}
+                        </p>
+                        <p className="py-4 text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                            Ksh {formatPrice(rental.price)}
+                        </p>
                         <button
                             className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition duration-300"
                             onClick={handleRental}
@@ -93,7 +116,9 @@ export default function RentedDetail() {
                 </div>
 
                 <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-6 dark:border-gray-700 dark:bg-gray-800">
-                    <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Description</h3>
+                    <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                        Description
+                    </h3>
                     <p className="text-lg text-gray-700 dark:text-gray-300">
                         {rental.description}
                     </p>
@@ -112,8 +137,8 @@ export default function RentedDetail() {
                         style={{ border: 0 }}
                         allowFullScreen
                         loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade">
-                    </iframe>
+                        referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
                 </section>
             </div>
         </div>

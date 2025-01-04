@@ -113,7 +113,7 @@ function HomePage() {
                   Renting a property offers flexibility, lower upfront costs, and freedom from maintenance responsibilities. It allows you to move easily for job opportunities or personal reasons, and often includes amenities like gyms and pools. Consider renting to maintain financial flexibility and enjoy hassle-free living.
                 </p>
                 <button
-                  className='px-6 py-2 text-white font-semibold bg-blue-500 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300 ease-in-out'
+                  className='px-6 py-2 text-white font-semibold bg-red-600 rounded-lg shadow hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300 ease-in-out'
                   onClick={goToRentPage}
                 >
                   Rent
@@ -134,7 +134,7 @@ function HomePage() {
                   Buying a property can be a wise investment, offering stability and the potential for long-term financial growth. Home ownership allows you to build equity, benefit from tax advantages, and have the freedom to customize your space. Consider buying to secure your financial future and create a lasting home.
                 </p>
                 <button
-                  className='px-6 py-2 text-white font-semibold bg-blue-500 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300 ease-in-out'
+                  className='px-6 py-2 text-white font-semibold bg-red-500 rounded-lg shadow hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300 ease-in-out'
                   onClick={goToBuyPage}
                 >
                   Buy
@@ -145,7 +145,7 @@ function HomePage() {
         </section>
       </main>
 
-      <footer className="bg-blue-600 mt-20 py-6">
+      <footer className="bg-red-600 mt-20 py-6">
         <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
           <div className="flex flex-col items-center sm:flex-row sm:justify-between">
             <a href="https://flowbite.com/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
